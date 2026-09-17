@@ -1,0 +1,212 @@
+/* --- OVERLAY DO MODAL --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+/* --- CONTAINER PRINCIPAL DIVIDIDO --- */
+.auth-container {
+    display: flex;
+    width: 850px;
+    max-width: 95%;
+    height: 520px; /* Altura fixa para conter a imagem */
+    max-height: 90vh;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+}
+
+/* --- LADO ESQUERDO (IMAGEM) --- */
+.auth-image-panel {
+    flex: 1;
+    height: 100%;
+    background-color: #2c3e50;
+    overflow: hidden;
+}
+
+.auth-image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta e centraliza a imagem no painel */
+    object-position: center;
+    display: block;
+}
+
+/* --- LADO DIREITO (FORMULÁRIO) --- */
+.auth-form-panel {
+    flex: 1.1;
+    padding: 2.5rem 2.5rem;
+    background: #ffffff;
+    position: relative;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto; /* Permite scroll interno em telas muito pequenas */
+}
+
+/* Botão de Fechar Modal */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #e74c3c;
+}
+
+.auth-title { 
+    font-size: 1.8rem; 
+    font-weight: 600; 
+    margin-bottom: 1.5rem; 
+    color: #2c3e50; 
+}
+
+/* --- INPUTS --- */
+.input-group {
+    display: flex; 
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1.2rem; 
+    padding-bottom: 5px;
+    transition: border-color 0.3s;
+}
+
+.input-group:focus-within { 
+    border-bottom: 2px solid #1abc9c; 
+}
+
+.auth-icon { 
+    font-size: 1.1rem; 
+    margin-right: 10px; 
+    color: #888; 
+}
+
+.input-group input { 
+    border: none !important; 
+    outline: none; 
+    width: 100%; 
+    font-size: 0.95rem; 
+    color: #333; 
+    background: transparent;
+}
+
+/* --- BOTÕES PRINCIPAIS --- */
+.btn-auth {
+    background-color: #1abc9c; 
+    color: white; 
+    width: 100%;
+    padding: 12px; 
+    font-size: 1rem; 
+    font-weight: bold;
+    border: none;
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+}
+
+.btn-auth:hover { 
+    background-color: #16a085; 
+}
+
+.forgot-link { 
+    color: #1abc9c; 
+    text-decoration: none; 
+    font-size: 0.85rem; 
+}
+
+.forgot-link:hover { 
+    text-decoration: underline; 
+}
+
+/* --- BOTÕES SOCIAIS --- */
+.social-divider {
+    text-align: center; 
+    margin: 20px 0 15px; 
+    position: relative;
+}
+
+.social-divider::before {
+    content: ""; 
+    position: absolute;
+    top: 50%; 
+    left: 0; 
+    right: 0;
+    border-top: 1px solid #e0e0e0; 
+    z-index: 1;
+}
+
+.social-divider span {
+    background: #ffffff; 
+    padding: 0 12px; 
+    color: #888;
+    font-size: 0.8rem; 
+    position: relative; 
+    z-index: 2;
+}
+
+.social-buttons { 
+    display: flex; 
+    gap: 8px; 
+}
+
+.btn-social {
+    flex: 1; 
+    padding: 8px; 
+    color: white; 
+    border: none;
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 0.8rem; 
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.btn-social:hover { 
+    opacity: 0.9; 
+}
+
+.btn-google { background-color: #e74c3c; }
+.btn-facebook { background-color: #3b5998; }
+.btn-github { background-color: #2c3e50; }
+
+/* --- MODAIS DE SUPORTE --- */
+.success-content { 
+    text-align: center; 
+    width: 380px; 
+    padding: 2rem; 
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.error-msg {
+    color: #c0392b; 
+    font-size: 0.85rem; 
+    text-align: left;
+    margin-bottom: 1rem; 
+    background: #fadbd8; 
+    padding: 8px 12px; 
+    border-radius: 4px;
+}

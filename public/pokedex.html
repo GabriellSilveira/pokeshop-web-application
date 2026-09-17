@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéShop - My Pokedex</title>
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <!-- Importa todos os seus CSS, incluindo o filter.css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/filter.css">
+
+    <script>
+        if (localStorage.getItem('pokeshop_theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            window.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('dark-mode');
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- NAVBAR DINÂMICA -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Container limpo e centralizado (sem o buraco da direita) -->
+    <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 2.2rem; color: var(--text-main);">My Pokédex</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.1rem;">The Pokémon you've caught on your journey.</p>
+        </div>
+
+        <!-- Barra de Pesquisa centralizada -->
+        <div class="search-container" style="max-width: 600px; margin: 0 auto 1.5rem auto; position: relative; top: 0; z-index: 90;">
+            <input type="text" id="pokedex-search" placeholder="Search your caught Pokémon!">
+            <button id="pokedex-search-btn"><span>🔴</span></button>
+        </div>
+
+        <!-- Grid da Pokedex -->
+        <section id="pokemon-grid" class="grid" data-testid="pokedex-grid" style="padding: 0; margin-top: 1rem;">
+            <!-- Renderizado via JS -->
+        </section>
+
+    </main>
+
+    <!-- SCRIPTS -->
+    <script type="module">
+        import { initNavbar } from './js/navbar.js';
+        initNavbar();
+    </script>
+    <script type="module" src="js/pokedex.js"></script>
+</body>
+</html>

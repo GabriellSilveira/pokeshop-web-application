@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokeshop - QA Edition</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/checkout.css">
+
+    <!-- SCRIPT DE SINCRONIZAÇÃO DE TEMA -->
+    <script>
+        if (localStorage.getItem('pokeshop_theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            window.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('dark-mode');
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- COMPONENTES DINÂMICOS & PLACEHOLDERS       -->
+    <!-- ========================================== -->
+    <div id="navbar-placeholder"></div>
+    <div id="cart-modal-placeholder"></div>
+    <div id="checkout-modal-placeholder"></div>
+
+    <main class="dashboard-container">
+
+        <!-- CONTEÚDO PRINCIPAL (BUSCA E LISTA) -->
+        <div class="content-left">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search your Pokémon!" data-testid="search-input">
+                <button id="search-btn" data-testid="search-btn">
+                    <img src="img/search-icon.png" alt="Search Icon" class="search-icon-img">
+                </button>
+            </div>
+
+            <section id="pokemon-grid" class="grid" data-testid="pokemon-grid"></section>
+
+            <div class="load-more-container">
+                <button id="btnLoadMore" class="btn-load-more" data-testid="load-more-button">Load More</button>
+            </div>
+        </div>
+
+        <!-- SIDEBAR DE DETALHES -->
+        <aside class="sidebar-right" data-testid="featured-pokemon-card">
+            <div class="featured-card">
+                <div class="featured-img-container">
+                    <img id="feat-img" src="" alt="Featured Pokémon">
+                </div>
+                <span id="feat-id" class="pokemon-id">#000</span>
+                <h2 id="feat-name" class="featured-name">Loading...</h2>
+                <div id="feat-types" class="types-container"></div>
+                
+                <div class="featured-section-title">POKÉDEX ENTRY</div>
+                <p id="feat-description" class="featured-desc">Loading description...</p>
+
+                <div class="feat-info-grid">
+                    <div class="feat-info-box"><span class="feat-info-label">HEIGHT</span><span id="feat-height" class="feat-info-value">0m</span></div>
+                    <div class="feat-info-box"><span class="feat-info-label">WEIGHT</span><span id="feat-weight" class="feat-info-value">0kg</span></div>
+                    <div class="feat-info-box"><span class="feat-info-label">BASE EXP</span><span id="feat-base-exp" class="feat-info-value">0</span></div>
+                </div>
+
+                <div class="featured-section-title">STATS</div>
+                <div id="feat-stats" class="feat-stats-container"></div>
+
+                <div class="featured-footer" style="margin-top: 1.5rem; text-align: center;">
+                    <p id="feat-price" class="price" data-testid="featured-pokemon-price" style="margin-bottom: 0.8rem; font-size: 1.2rem; font-weight: 700; color: #10b981;">$ 0.00</p>
+                    <button id="feat-buy-btn" class="btn-buy" data-testid="featured-buy-button">Buy</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========================================== -->
+        <!-- MODAIS ESTÁTICOS (AUTENTICAÇÃO)            -->
+        <!-- ========================================== -->
+        
+        <div id="auth-modal" class="modal hidden" data-testid="auth-modal">
+            <div class="modal-content auth-container">
+                <div class="auth-image-panel"><img src="img/login-bg.jpg" alt="Shop Splash Art" id="auth-side-image"></div>
+                <div class="auth-form-panel">
+                    <span class="close-btn" id="closeAuthModal" data-testid="close-auth-button">&times;</span>
+                    
+                    <div id="login-section" data-testid="login-section">
+                        <h2 class="auth-title">Log In</h2>
+                        <div class="input-group"><span class="auth-icon">👤</span><input type="text" id="login-username" placeholder="Username" data-testid="login-username-input"></div>
+                        <div class="input-group"><span class="auth-icon">🔒</span><input type="password" id="login-password" placeholder="Password" data-testid="login-password-input"></div>
+                        <div style="text-align: right; margin-bottom: 15px;"><a href="#" class="forgot-link">Forgot Password?</a></div>
+                        <button id="btnSubmitLogin" class="btn-auth" data-testid="submit-login-button">Login</button>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.9rem;"><span>New user? <a href="#" id="show-register" data-testid="show-register-link" style="color:#1abc9c; font-weight:bold;">Sign up</a></span></div>
+                        <div class="social-divider"><span>Or Login with</span></div>
+                        <div class="social-buttons"><button class="btn-social btn-google">G+ Google</button><button class="btn-social btn-facebook">f Facebook</button><button class="btn-social btn-github">🐙 Github</button></div>
+                    </div>
+                    
+                    <div id="register-section" class="hidden" data-testid="register-section">
+                        <h2 class="auth-title">Create Account</h2>
+                        <div class="input-group"><span class="auth-icon">📧</span><input type="email" id="reg-email" placeholder="Email" data-testid="reg-email-input"></div>
+                        <div class="input-group"><span class="auth-icon">👤</span><input type="text" id="reg-username" placeholder="Username" data-testid="reg-username-input"></div>
+                        <div class="input-group"><span class="auth-icon">🔒</span><input type="password" id="reg-password" placeholder="Password" data-testid="reg-password-input"></div>
+                        <p id="password-error" class="error-msg hidden" data-testid="password-error">Password must have at least 5 characters, 1 uppercase letter, 1 number, and 1 special character.</p>
+                        <button id="btnSubmitRegister" class="btn-auth" data-testid="submit-register-button">Register</button>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.9rem;"><span>Already have an account? <a href="#" id="show-login" data-testid="show-login-link" style="color:#1abc9c; font-weight:bold;">Sign In</a></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="success-modal" class="modal hidden" data-testid="success-modal">
+            <div class="modal-content success-content">
+                <h2 style="color: #1abc9c; margin-bottom: 15px;">Success! 🎉</h2>
+                <p id="success-message">Account created successfully! Please log in to continue.</p>
+                <button id="closeSuccessModal" class="btn-auth" style="margin-top: 25px; width: 60%;">OK</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- INICIALIZAÇÃO DE COMPONENTES NA ORDEM CORRETA -->
+    <script type="module">
+        import { initNavbar } from './js/navbar.js';
+        import { initTheme } from './js/theme.js';
+        import { initCartModal } from './js/modals/cartModal.js';
+        import { initCheckoutModal } from './js/modals/checkoutModal.js';
+        import { configureCheckout } from './js/checkout.js';
+
+        // 1º Injeta o HTML dos modais (Componentes)
+        initNavbar();
+        initCartModal();
+        initCheckoutModal();
+        
+        // 2º Conecta os eventos de JS nos componentes recém injetados
+        initTheme();
+        configureCheckout(); 
+    </script>
+    
+    <!-- SCRIPT PRINCIPAL -->
+    <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

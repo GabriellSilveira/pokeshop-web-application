@@ -1,0 +1,193 @@
+/* --- FILTERS STYLES --- */
+.filters-container {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem auto 1.5rem auto;
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-btn {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    color: var(--text-main, #1e293b);
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: #6366f1;
+}
+
+.filter-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 210px;
+    max-height: 260px;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.filter-menu.hidden {
+    display: none;
+}
+
+.filter-option {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-main, #1e293b);
+    text-transform: capitalize;
+    text-align: center;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.filter-option:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+/* --- BADGES DE TIPO DENTRO DA LOV E CARDS --- */
+/* 1. Garante que os badges dos cards não estiquem e alinhem com o ícone */
+.type-badge {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: max-content !important; /* Isso corrige o botão gigante nos cards */
+}
+
+/* 2. Configuração específica do badge dentro do menu suspenso */
+.filter-menu .type-badge {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start; /* Alinha o ícone e texto à esquerda */
+    width: 100% !important; /* No menu, queremos que preencha toda a largura */
+    padding: 0.45rem 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white !important;
+}
+
+/* --- CONFIGURAÇÃO DOS ÍCONES PNG --- */
+.type-icon {
+    width: 16px; 
+    height: 16px;
+    object-fit: contain;
+    filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.3));
+    flex-shrink: 0; /* Impede o ícone de ser esmagado caso o texto seja grande */
+}
+
+.filter-reset-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.filter-reset-btn:hover {
+    opacity: 0.9;
+}
+
+.filter-reset-btn.hidden {
+    display: none;
+}
+
+/* --- ACTIVE FILTERS TAGS (Abaixo da pesquisa) --- */
+.active-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto 1.5rem auto;
+    padding: 0 1rem;
+    min-height: 32px;
+}
+
+.active-filter-tag {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.active-filter-tag .remove-tag {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.active-filter-tag .remove-tag:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* --- MENSAGEM DE AVISO DE LIMITE DE TIPOS --- */
+.filter-warning-msg {
+    max-width: 800px;
+    margin: -0.5rem auto 1rem auto;
+    text-align: center;
+    color: #ef4444;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0 1rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.filter-warning-msg.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

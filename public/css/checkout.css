@@ -1,0 +1,182 @@
+/* --- CHECKOUT MODAL STYLES --- */
+.checkout-container {
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 600px;
+    max-width: 95%;
+    position: relative;
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+#closeCheckout {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+.checkout-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.checkout-steps .step {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.checkout-steps .step.active {
+    color: #10b981;
+    border-bottom: 2px solid #10b981;
+}
+
+.checkout-step-content h2 {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    width: 100%;
+}
+
+/* Tooltip do Cartão de Crédito */
+.tooltip-icon {
+    background: var(--border-color);
+    color: var(--text-main);
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.tooltip-text {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    width: 220px;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    line-height: 1.4;
+}
+
+.tooltip-container:hover .tooltip-text {
+    display: block !important;
+}
+
+/* Resumo do Pedido (Order Summary) */
+.summary-list {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.summary-totals {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.summary-totals strong {
+    color: var(--text-main);
+}
+
+.summary-totals h3 {
+    margin-top: 10px;
+    color: #10b981;
+    font-size: 1.4rem;
+}
+
+.summary-item-card {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    cursor: default;
+}
+
+/* Tela de Sucesso */
+.success-step {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-step h2 {
+    color: #10b981;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.success-step p {
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.success-step p strong {
+    color: var(--text-main);
+}
+
+/* Botões de Ação */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 1.5rem;
+}
+
+.btn-secondary {
+    flex: 1;
+    background-color: var(--border-color);
+    color: var(--text-main);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-success {
+    flex: 2;
+    background-color: #10b981 !important;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059669 !important;
+}

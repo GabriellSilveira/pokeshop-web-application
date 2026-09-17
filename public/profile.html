@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéShop - Profile</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+    <!-- SCRIPT DE APLICAÇÃO IMEDIATA DO TEMA (EVITA FLASH) -->
+    <script>
+        if (localStorage.getItem('pokeshop_theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            window.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('dark-mode');
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- FEATURE: NAVBAR / HEADER                   -->
+    <!-- ========================================== -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <a href="index.html">
+                <img src="img/logo.png" alt="PokéShop Logo" class="nav-logo">
+            </a>
+        </div>
+        
+        <nav>
+            <ul class="nav-links">
+                <li>
+                    <a href="index.html" data-testid="nav-home">
+                        <img src="img/home-icon.png" alt="Home Icon" class="nav-icon"> Home
+                    </a>
+                </li>
+                <li>
+                    <a href="pokedex.html" data-testid="nav-pokedex">
+                        <img src="img/pokedex-icon.png" alt="Pokedex Icon" class="nav-icon"> Pokedex
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <!-- Theme Toggle Switch -->
+            <div id="themeToggle" class="theme-toggle" data-testid="theme-toggle" title="Toggle Dark/Light Mode" style="cursor: pointer; font-size: 1.2rem; padding: 5px 10px; border-radius: 6px; background: rgba(0,0,0,0.1);">
+                <span class="toggle-icon">☀️</span>
+                <span class="toggle-icon">🌙</span>
+            </div>
+
+            <!-- Cart Trigger Button -->
+            <button id="cart-btn" class="cart-btn" data-testid="cart-button">
+                <img src="img/cart-icon.png" alt="Cart Icon" class="cart-icon">
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-testid="cart-count">0</span>
+            </button>
+            
+            <!-- Auth Container -->
+            <div id="auth-action-container"></div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- PROFILE CONTAINER                          -->
+    <!-- ========================================== -->
+    <main class="profile-wrapper">
+        <div class="profile-card">
+            <!-- Top Header with Avatar & Summary -->
+            <div class="profile-header-section">
+                <div id="profile-avatar" class="profile-avatar-lg">U</div>
+                <div class="profile-user-info">
+                    <h3 id="profile-display-name">Your name</h3>
+                    <p id="profile-display-email">yourname@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Editable Fields -->
+            <div class="profile-fields">
+                <div class="profile-field-row">
+                    <span class="profile-field-label">Name</span>
+                    <input type="text" id="input-name" class="profile-field-value" value="Your name">
+                </div>
+                <div class="profile-field-row">
+                    <span class="profile-field-label">Email account</span>
+                    <span id="text-email" class="profile-field-static" title="Email cannot be changed">yourname@gmail.com</span>
+                </div>
+                <div class="profile-field-row">
+                    <span class="profile-field-label">Mobile number</span>
+                    <div id="mobile-number-container">
+                        <span class="add-number-link" id="btnAddNumber">Add number</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnSaveProfile" class="btn-save-profile">Save Change</button>
+            <button id="btnOpenChangePassword" class="btn-secondary-profile" data-testid="open-change-password-modal">Change Password</button>
+            <button id="btnLogoutProfile" class="btn-logout-profile" data-testid="logout-button">Log Out</button>
+        </div>
+    </main>
+
+    <!-- Success Notification Modal -->
+    <div id="profile-success-modal" class="modal hidden" data-testid="profile-success-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <div class="modal-content success-content" style="text-align: center; background: var(--card-bg); color: var(--text-main); padding: 2.5rem; border-radius: 12px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <h2 style="color: #10b981; margin-bottom: 15px;">Success! 🎉</h2>
+            <p id="profile-success-message" style="color: var(--text-muted); margin-bottom: 20px;">Profile updated successfully!</p>
+            <button id="closeProfileSuccessModal" class="btn-auth" style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 50%; font-weight: bold;">OK</button>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="modal hidden" data-testid="change-password-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <div class="modal-content" style="background: var(--card-bg); color: var(--text-main); padding: 2rem; border-radius: 12px; width: 420px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;">
+            <span class="close-btn" id="closePasswordModal" style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</span>
+            <h2 style="margin-bottom: 1.2rem; font-size: 1.25rem;">Change Password</h2>
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Current Password</label>
+                <input type="password" id="current-password" class="profile-field-value" placeholder="••••••••" style="width: 100%; text-align: left;" data-testid="current-password-input" />
+                
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">New Password</label>
+                <input type="password" id="new-password" class="profile-field-value" placeholder="••••••••" style="width: 100%; text-align: left;" data-testid="new-password-input" />
+                
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Confirm New Password</label>
+                <input type="password" id="confirm-password" class="profile-field-value" placeholder="••••••••" style="width: 100%; text-align: left;" data-testid="confirm-password-input" />
+                
+                <p id="pwd-error-msg" class="error-msg hidden" style="color: #ef4444; font-size: 0.85rem; margin: 5px 0 0 0;" data-testid="password-error-msg"></p>
+            </div>
+            <button id="btnSubmitNewPassword" class="btn-save-profile" style="margin-top: 1.2rem;" data-testid="submit-new-password">Update Password</button>
+        </div>
+    </div>
+
+    <!-- EXTERNAL PROFILE SCRIPT -->
+    <script type="module" src="js/profile.js"></script>
+</body>
+</html>
