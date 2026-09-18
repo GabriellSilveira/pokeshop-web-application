@@ -12,7 +12,7 @@
     --modal-bg: #ffffff;
 }
 
-body.dark-mode {
+html.dark-mode {
     --bg-color: #0b0f19;       /* Fundo escuro elegante */
     --card-bg: #131b2e;       /* Cards em azul escuro suave */
     --text-main: #f8fafc;     /* Textos claros */
@@ -35,6 +35,7 @@ body.dark-mode {
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
+    padding-top: 66px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 

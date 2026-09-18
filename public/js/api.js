@@ -206,7 +206,8 @@ export async function loadFeaturedPokemonDetails(identifier) {
         const pokePrice = Math.round(totalStatsValue / poke.stats.length);
         
         const pokeSprite = poke.sprites.front_default;
-        document.getElementById('feat-price').innerText = `$ ${pokePrice}.00`;
+        const featPrice = document.getElementById('feat-price');
+        if (featPrice) featPrice.innerText = `$ ${pokePrice}.00`;
         
         const featBuyBtn = document.getElementById('feat-buy-btn');
         if (featBuyBtn) {
@@ -224,6 +225,24 @@ export async function loadFeaturedPokemonDetails(identifier) {
                     ${typeName}
                 </span>`;
             }).join('');
+        }
+
+        const abilitiesContainer = document.getElementById('feat-abilities');
+        if (abilitiesContainer) {
+            abilitiesContainer.innerHTML = poke.abilities
+                .filter(ability => !ability.is_hidden)
+                .map(ability => {
+                const abilityName = ability.ability.name
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+
+                return `
+                    <div class="ability-pill" title="Ability">
+                        <span>${abilityName}</span>
+                    </div>
+                `;
+                }).join('');
         }
 
         const statConfig = {

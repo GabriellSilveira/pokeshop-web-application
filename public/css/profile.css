@@ -7,7 +7,7 @@
     --input-bg: #f8fafc;
 }
 
-body.dark-mode {
+html.dark-mode {
     --bg-page: #0f172a;
     --card-bg: #1e293b;
     --text-main: #f8fafc;
@@ -19,6 +19,7 @@ body.dark-mode {
 body {
     background-color: var(--bg-page);
     color: var(--text-main);
+    padding-top: 66px;
     transition: background 0.3s, color 0.3s;
 }
 

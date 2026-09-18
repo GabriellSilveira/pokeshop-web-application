@@ -1,3 +1,5 @@
+import { loadFeaturedPokemonDetails } from './api.js';
+
 let activeTypes = [];
 let activeGenerationUrl = null;
 let activeGenerationName = null;
@@ -5,24 +7,47 @@ let searchQuery = "";
 let userPokemonsDetailed = []; // Guarda todos os pokémons do usuário
 
 document.addEventListener('DOMContentLoaded', async () => {
+    setupDetailsPanel();
     const loggedUser = localStorage.getItem('userLogged');
     
     if (!loggedUser) {
-        alert('You must be logged in to view your Pokédex!');
-        window.location.href = 'index.html';
+        window.location.replace('index.html?auth=login');
         return;
     }
 
     await initPokedex(loggedUser);
 });
 
+function setupDetailsPanel() {
+    const panel = document.getElementById('pokedex-details-panel');
+    const closeButton = document.getElementById('close-pokedex-details');
+    if (!panel || !closeButton) return;
+    const layout = panel.closest('.pokedex-layout');
+
+    closeButton.addEventListener('click', () => {
+        panel.classList.remove('is-open');
+        panel.setAttribute('aria-hidden', 'true');
+        layout?.classList.remove('details-open');
+    });
+}
+
+async function openPokemonDetails(pokemonId) {
+    const panel = document.getElementById('pokedex-details-panel');
+    if (!panel) return;
+    const layout = panel.closest('.pokedex-layout');
+
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    layout?.classList.add('details-open');
+    await loadFeaturedPokemonDetails(pokemonId);
+}
+
 async function initPokedex(user) {
     const grid = document.getElementById('pokemon-grid');
     const inventoryKey = `pokedex_inventory_${user}`;
     
-    // Remove duplicatas
     const rawInventory = JSON.parse(localStorage.getItem(inventoryKey)) || [];
-    const userInventory = [...new Set(rawInventory)]; 
+    const userInventory = rawInventory;
 
     if (userInventory.length === 0) {
         showGlobalEmptyState();
@@ -395,6 +420,8 @@ function renderPokemons(list) {
         const card = document.createElement('div');
         card.className = 'card';
         card.setAttribute('data-testid', `pokedex-card-${poke.name}`);
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
         
         card.innerHTML = `
             <img src="${poke.sprite}" alt="${poke.name}">
@@ -403,5 +430,13 @@ function renderPokemons(list) {
             <div class="types-container" style="margin-bottom: 0;">${typesHTML}</div>
         `;
         grid.appendChild(card);
+
+        card.addEventListener('click', () => openPokemonDetails(poke.id));
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openPokemonDetails(poke.id);
+            }
+        });
     });
 }

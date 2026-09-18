@@ -16,12 +16,7 @@
 
     <!-- SCRIPT DE SINCRONIZAÇÃO DE TEMA -->
     <script>
-        if (localStorage.getItem('pokeshop_theme') === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-            window.addEventListener('DOMContentLoaded', () => {
-                document.body.classList.add('dark-mode');
-            });
-        }
+        document.documentElement.classList.toggle('dark-mode', localStorage.getItem('pokeshop_theme') === 'dark');
     </script>
 </head>
 <body>
@@ -29,7 +24,28 @@
     <!-- ========================================== -->
     <!-- COMPONENTES DINÂMICOS & PLACEHOLDERS       -->
     <!-- ========================================== -->
-    <div id="navbar-placeholder"></div>
+    <div id="navbar-placeholder">
+        <header class="navbar">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="PokéShop Logo" class="nav-logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-testid="nav-home"><img src="img/home-icon.png" alt="Home Icon" class="nav-icon"> Home</a></li>
+                    <li><a href="pokedex.html" data-testid="nav-pokedex"><img src="img/pokedex-icon.png" alt="Pokedex Icon" class="nav-icon"> Pokedex</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div id="themeToggle" class="theme-toggle" data-testid="theme-toggle" title="Toggle Dark/Light Mode" style="cursor: pointer; font-size: 1.2rem; padding: 5px 10px; border-radius: 6px; background: rgba(0,0,0,0.1);">
+                    <span class="toggle-icon">☀️</span><span class="toggle-icon">🌙</span>
+                </div>
+                <button id="cart-btn" class="cart-btn" data-testid="cart-button"><img src="img/cart-icon.png" alt="Cart Icon" class="cart-icon"><span>Cart</span><span id="cart-count" class="cart-badge" data-testid="cart-count">0</span></button>
+                <div id="auth-action-container"><button id="btnLogin" data-testid="login-button" class="btn-header-login">Sign In / Register</button></div>
+            </div>
+        </header>
+    </div>
     <div id="cart-modal-placeholder"></div>
     <div id="checkout-modal-placeholder"></div>
 
@@ -97,8 +113,6 @@
                         <div style="text-align: right; margin-bottom: 15px;"><a href="#" class="forgot-link">Forgot Password?</a></div>
                         <button id="btnSubmitLogin" class="btn-auth" data-testid="submit-login-button">Login</button>
                         <div style="margin-top: 15px; text-align: center; font-size: 0.9rem;"><span>New user? <a href="#" id="show-register" data-testid="show-register-link" style="color:#1abc9c; font-weight:bold;">Sign up</a></span></div>
-                        <div class="social-divider"><span>Or Login with</span></div>
-                        <div class="social-buttons"><button class="btn-social btn-google">G+ Google</button><button class="btn-social btn-facebook">f Facebook</button><button class="btn-social btn-github">🐙 Github</button></div>
                     </div>
                     
                     <div id="register-section" class="hidden" data-testid="register-section">

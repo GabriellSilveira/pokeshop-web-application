@@ -7,6 +7,101 @@
     z-index: 80;
 }
 
+.pokedex-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 0;
+    gap: 2rem;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 2rem;
+    align-items: start;
+    transition: grid-template-columns 0.45s ease;
+}
+
+.pokedex-layout.details-open {
+    grid-template-columns: minmax(0, 1fr) 380px;
+}
+
+.pokedex-layout .content-left {
+    min-width: 0;
+}
+
+.pokedex-layout .card {
+    cursor: pointer;
+}
+
+.pokedex-layout .card:focus-visible {
+    outline: 3px solid #38bdf8;
+    outline-offset: 4px;
+}
+
+.pokedex-details-panel {
+    display: block;
+    width: 100%;
+    position: sticky;
+    top: 85px;
+    z-index: 80;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(24px);
+    transition: opacity 0.3s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+}
+
+.pokedex-details-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition: opacity 0.3s ease 0.12s, transform 0.45s ease, visibility 0s linear 0s;
+}
+
+.pokedex-details-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--border-color);
+    color: var(--text-main);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.pokedex-details-close:hover {
+    background: var(--text-secondary);
+    color: var(--card-bg);
+}
+
+@media (max-width: 900px) {
+    .pokedex-layout {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .pokedex-layout.details-open {
+        grid-template-columns: 1fr;
+    }
+
+    .pokedex-details-panel {
+        position: static;
+        width: min(100%, 480px);
+        margin: 0 auto;
+        max-height: 0;
+        overflow: hidden;
+        transform: translateY(24px);
+    }
+
+    .pokedex-details-panel.is-open {
+        max-height: 2000px;
+        transform: translateY(0);
+    }
+}
+
 .featured-card {
     background: #ffffff;
     border-radius: 24px;
@@ -48,6 +143,41 @@
     letter-spacing: 1px;
     margin: 1.2rem 0 0.5rem 0;
     text-align: left;
+}
+
+.abilities-title {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.feat-abilities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.ability-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-width: 0;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #a8c4e8;
+    border-radius: 999px;
+    color: #334155;
+    background: #f8fafc;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.ability-pill span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .featured-desc {

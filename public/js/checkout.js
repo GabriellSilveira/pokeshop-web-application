@@ -134,10 +134,7 @@ function setupCheckoutEvents() {
                 const currentCart = JSON.parse(localStorage.getItem('pokeshop_cart')) || [];
 
                 currentCart.forEach(item => {
-                    // Impede duplicatas (só salva se o usuário ainda não tiver o Pokémon)
-                    if (!userInventory.includes(item.name)) {
-                        userInventory.push(item.name);
-                    }
+                    userInventory.push(item.name);
                 });
 
                 localStorage.setItem(inventoryKey, JSON.stringify(userInventory));

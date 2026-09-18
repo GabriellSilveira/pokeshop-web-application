@@ -16,12 +16,7 @@
 
     <!-- SCRIPT DE APLICAÇÃO IMEDIATA DO TEMA (EVITA FLASH) -->
     <script>
-        if (localStorage.getItem('pokeshop_theme') === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-            window.addEventListener('DOMContentLoaded', () => {
-                document.body.classList.add('dark-mode');
-            });
-        }
+        document.documentElement.classList.toggle('dark-mode', localStorage.getItem('pokeshop_theme') === 'dark');
     </script>
 </head>
 <body>

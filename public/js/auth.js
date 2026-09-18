@@ -50,6 +50,11 @@ function initAuthEvents() {
 
     verifyLoginStatus();
 
+    if (new URLSearchParams(window.location.search).get('auth') === 'login') {
+        document.getElementById('auth-modal')?.classList.remove('hidden');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Submit de Registro (com Auto-Login)
     const btnRegister = document.getElementById('btnSubmitRegister');
     if (btnRegister) {

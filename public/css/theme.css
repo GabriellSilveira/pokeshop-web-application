@@ -11,7 +11,7 @@
     --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-body.dark-mode {
+html.dark-mode {
     --navbar-bg: #1e293b;
     --card-bg: #1e293b;
     --border-color: #334155;
@@ -114,23 +114,23 @@ body {
 /* ========================================== */
 /* 6. CORREÇÕES DE TEXTO E STATS NO DARK MODE */
 /* ========================================== */
-body.dark-mode .stat-value {
+html.dark-mode .stat-value {
     color: #f8fafc !important;
 }
 
-body.dark-mode #feat-height,
-body.dark-mode #feat-weight,
-body.dark-mode #feat-base-exp {
+html.dark-mode #feat-height,
+html.dark-mode #feat-weight,
+html.dark-mode #feat-base-exp {
     color: #f8fafc !important;
 }
 
-body.dark-mode .stat-item {
+html.dark-mode .stat-item {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: #f8fafc;
 }
 
-body.dark-mode .sidebar .stat-badge,
-body.dark-mode .sidebar p,
-body.dark-mode .sidebar span {
+html.dark-mode .sidebar .stat-badge,
+html.dark-mode .sidebar p,
+html.dark-mode .sidebar span {
     color: inherit;
 }

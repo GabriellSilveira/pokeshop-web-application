@@ -9,8 +9,9 @@ export function initNavbar() {
     const isHome = path.includes('index.html') || path === '/' || path.endsWith('/');
     const isPokedex = path.includes('pokedex.html');
 
-    // Injeta o HTML genérico do Header
-    placeholder.innerHTML = `
+    // Usa a navbar estática quando ela já foi renderizada no HTML.
+    if (!placeholder.querySelector('.navbar')) {
+        placeholder.innerHTML = `
         <header class="navbar">
             <div class="navbar-brand">
                 <a href="index.html">
@@ -53,7 +54,11 @@ export function initNavbar() {
                 </div>
             </div>
         </header>
-    `;
+        `;
+    }
+
+    document.querySelector('[data-testid="nav-home"]')?.classList.toggle('active', isHome);
+    document.querySelector('[data-testid="nav-pokedex"]')?.classList.toggle('active', isPokedex);
 
     // 1. Atualizar Contador do Carrinho
     const cartCountEl = document.getElementById('cart-count');
@@ -107,5 +112,20 @@ export function initNavbar() {
                 });
             }
         }
+    }
+
+    const pokedexLink = document.querySelector('[data-testid="nav-pokedex"]');
+    if (pokedexLink) {
+        pokedexLink.addEventListener('click', (event) => {
+            if (localStorage.getItem('userLogged')) return;
+
+            event.preventDefault();
+            const authModal = document.getElementById('auth-modal');
+            if (authModal) {
+                authModal.classList.remove('hidden');
+            } else {
+                window.location.href = 'index.html?auth=login';
+            }
+        });
     }
 }

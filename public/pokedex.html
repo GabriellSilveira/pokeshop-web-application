@@ -14,44 +14,91 @@
     <link rel="stylesheet" href="css/filter.css">
 
     <script>
-        if (localStorage.getItem('pokeshop_theme') === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-            window.addEventListener('DOMContentLoaded', () => {
-                document.body.classList.add('dark-mode');
-            });
-        }
+        document.documentElement.classList.toggle('dark-mode', localStorage.getItem('pokeshop_theme') === 'dark');
     </script>
 </head>
 <body>
 
     <!-- NAVBAR DINÂMICA -->
-    <div id="navbar-placeholder"></div>
+    <div id="navbar-placeholder">
+        <header class="navbar">
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="PokéShop Logo" class="nav-logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-testid="nav-home"><img src="img/home-icon.png" alt="Home Icon" class="nav-icon"> Home</a></li>
+                    <li><a href="pokedex.html" data-testid="nav-pokedex"><img src="img/pokedex-icon.png" alt="Pokedex Icon" class="nav-icon"> Pokedex</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div id="themeToggle" class="theme-toggle" data-testid="theme-toggle" title="Toggle Dark/Light Mode" style="cursor: pointer; font-size: 1.2rem; padding: 5px 10px; border-radius: 6px; background: rgba(0,0,0,0.1);">
+                    <span class="toggle-icon">☀️</span><span class="toggle-icon">🌙</span>
+                </div>
+                <button id="cart-btn" class="cart-btn" data-testid="cart-button"><img src="img/cart-icon.png" alt="Cart Icon" class="cart-icon"><span>Cart</span><span id="cart-count" class="cart-badge" data-testid="cart-count">0</span></button>
+                <div id="auth-action-container"><button id="btnLogin" data-testid="login-button" class="btn-header-login">Sign In / Register</button></div>
+            </div>
+        </header>
+    </div>
 
     <!-- Container limpo e centralizado (sem o buraco da direita) -->
-    <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
-        
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <h2 style="font-size: 2.2rem; color: var(--text-main);">My Pokédex</h2>
-            <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.1rem;">The Pokémon you've caught on your journey.</p>
+    <main class="pokedex-layout">
+        <div class="content-left">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2.2rem; color: var(--text-main);">My Pokédex</h2>
+                <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.1rem;">The Pokémon you've caught on your journey.</p>
+            </div>
+
+            <!-- Barra de Pesquisa centralizada -->
+            <div class="search-container" style="max-width: 600px; margin: 0 auto 1.5rem auto; position: relative; top: 0; z-index: 90;">
+                <input type="text" id="pokedex-search" placeholder="Search your caught Pokémon!">
+                <button id="pokedex-search-btn"><span>🔴</span></button>
+            </div>
+
+            <!-- Grid da Pokedex -->
+            <section id="pokemon-grid" class="grid" data-testid="pokedex-grid" style="padding: 0; margin-top: 1rem;">
+                <!-- Renderizado via JS -->
+            </section>
         </div>
 
-        <!-- Barra de Pesquisa centralizada -->
-        <div class="search-container" style="max-width: 600px; margin: 0 auto 1.5rem auto; position: relative; top: 0; z-index: 90;">
-            <input type="text" id="pokedex-search" placeholder="Search your caught Pokémon!">
-            <button id="pokedex-search-btn"><span>🔴</span></button>
-        </div>
+        <aside id="pokedex-details-panel" class="pokedex-details-panel" data-testid="pokedex-details-panel" aria-hidden="true">
+            <div class="featured-card">
+                <button id="close-pokedex-details" class="pokedex-details-close" type="button" aria-label="Close Pokémon details">&times;</button>
+                <div class="featured-img-container">
+                    <img id="feat-img" src="" alt="Selected Pokémon">
+                </div>
+                <span id="feat-id" class="pokemon-id">#000</span>
+                <h2 id="feat-name" class="featured-name">Loading...</h2>
+                <div id="feat-types" class="types-container"></div>
 
-        <!-- Grid da Pokedex -->
-        <section id="pokemon-grid" class="grid" data-testid="pokedex-grid" style="padding: 0; margin-top: 1rem;">
-            <!-- Renderizado via JS -->
-        </section>
+                <div class="featured-section-title abilities-title">ABILITIES</div>
+                <div id="feat-abilities" class="feat-abilities" aria-label="Pokémon abilities"></div>
+
+                <div class="featured-section-title">POKÉDEX ENTRY</div>
+                <p id="feat-description" class="featured-desc">Loading description...</p>
+
+                <div class="feat-info-grid">
+                    <div class="feat-info-box"><span class="feat-info-label">HEIGHT</span><span id="feat-height" class="feat-info-value">0m</span></div>
+                    <div class="feat-info-box"><span class="feat-info-label">WEIGHT</span><span id="feat-weight" class="feat-info-value">0kg</span></div>
+                    <div class="feat-info-box"><span class="feat-info-label">BASE EXP</span><span id="feat-base-exp" class="feat-info-value">0</span></div>
+                </div>
+
+                <div class="featured-section-title">STATS</div>
+                <div id="feat-stats" class="feat-stats-container"></div>
+            </div>
+        </aside>
 
     </main>
 
     <!-- SCRIPTS -->
     <script type="module">
         import { initNavbar } from './js/navbar.js';
+        import { initTheme } from './js/theme.js';
+
         initNavbar();
+        initTheme();
     </script>
     <script type="module" src="js/pokedex.js"></script>
 </body>
