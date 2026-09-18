@@ -266,22 +266,8 @@ export async function loadFeaturedPokemonDetails(identifier) {
     }
 }
 
-// --- FETCH RANDOM FEATURED POKÉMON ON LOAD (COM CACHE DE 1 HORA) ---
+// --- FETCH RANDOM FEATURED POKÉMON ON LOAD ---
 export async function fetchFeaturedPokemon() {
-    const cachedId = localStorage.getItem('pokeshop_featured_id');
-    const cachedTime = localStorage.getItem('pokeshop_featured_time');
-    const now = new Date().getTime();
-
-    // Se houver um ID em cache com menos de 1 hora, carrega direto dele (instantâneo!)
-    if (cachedId && cachedTime && (now - cachedTime < 3600000)) {
-        await loadFeaturedPokemonDetails(cachedId);
-        return;
-    }
-
-    // Caso contrário, sorteia um novo ID, salva no cache e carrega
     const randomId = Math.floor(Math.random() * 898) + 1;
-    localStorage.setItem('pokeshop_featured_id', randomId);
-    localStorage.setItem('pokeshop_featured_time', now);
-
     await loadFeaturedPokemonDetails(randomId);
 }
