@@ -3,22 +3,18 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.get('/pokedex.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pokedex.html'));
-});
-
-app.get('/profile.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'profile.html'));
-});
-
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/health', (req, res) => {
+    res.status(200).send('Server is running!');
+});
+
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html')); // Opcional: crie um 404.html depois
+});
+
 app.listen(port, () => {
-    console.log(`Pokeshop rodando com sucesso em http://localhost:${port}`);
+    console.log(`Pokeshop rodando em http://localhost:${port}`);
 });
